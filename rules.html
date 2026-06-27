@@ -26,12 +26,30 @@
 
     <!-- Admin Login Modal -->
     <div id="adminModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content pin-modal">
             <span class="close" onclick="closeAdminModal()">&times;</span>
             <h2>Admin Access</h2>
-            <p>Enter admin code:</p>
-            <input type="password" id="adminCode" placeholder="Enter code">
-            <button onclick="verifyAdminCode()">Submit</button>
+            <p>Enter PIN code:</p>
+            <div class="pin-display" id="pinDisplay">
+                <span class="pin-dot"></span>
+                <span class="pin-dot"></span>
+                <span class="pin-dot"></span>
+                <span class="pin-dot"></span>
+            </div>
+            <div class="keypad">
+                <button class="keypad-btn" onclick="enterPin(1)">1</button>
+                <button class="keypad-btn" onclick="enterPin(2)">2</button>
+                <button class="keypad-btn" onclick="enterPin(3)">3</button>
+                <button class="keypad-btn" onclick="enterPin(4)">4</button>
+                <button class="keypad-btn" onclick="enterPin(5)">5</button>
+                <button class="keypad-btn" onclick="enterPin(6)">6</button>
+                <button class="keypad-btn" onclick="enterPin(7)">7</button>
+                <button class="keypad-btn" onclick="enterPin(8)">8</button>
+                <button class="keypad-btn" onclick="enterPin(9)">9</button>
+                <button class="keypad-btn clear-btn" onclick="clearPin()">Clear</button>
+                <button class="keypad-btn" onclick="enterPin(0)">0</button>
+                <button class="keypad-btn submit-btn" onclick="submitPin()">Submit</button>
+            </div>
             <p id="errorMessage" class="error"></p>
         </div>
     </div>

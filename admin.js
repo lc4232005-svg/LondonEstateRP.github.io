@@ -1,6 +1,7 @@
 // Admin Authentication
 const ADMIN_CODE = "0872";
 const ADMIN_SESSION_KEY = "admin_session";
+let currentPin = "";
 
 // Check if user is authenticated
 function isAdminAuthenticated() {
@@ -13,25 +14,69 @@ function openAdminModal() {
         window.location.href = "admin.html";
         return;
     }
+    currentPin = "";
+    updatePinDisplay();
     document.getElementById("adminModal").style.display = "block";
+    document.getElementById("errorMessage").textContent = "";
 }
 
 // Close admin modal
 function closeAdminModal() {
     document.getElementById("adminModal").style.display = "none";
-    document.getElementById("adminCode").value = "";
+    currentPin = "";
+    updatePinDisplay();
     document.getElementById("errorMessage").textContent = "";
 }
 
-// Verify admin code
-function verifyAdminCode() {
-    const code = document.getElementById("adminCode").value;
-    if (code === ADMIN_CODE) {
+// Enter PIN digit
+function enterPin(digit) {
+    if (currentPin.length < 4) {
+        currentPin += digit;
+        updatePinDisplay();
+        
+        // Auto-submit when 4 digits entered
+        if (currentPin.length === 4) {
+            setTimeout(submitPin, 300);
+        }
+    }
+}
+
+// Clear PIN
+function clearPin() {
+    currentPin = "";
+    updatePinDisplay();
+    document.getElementById("errorMessage").textContent = "";
+}
+
+// Update PIN display
+function updatePinDisplay() {
+    const dots = document.querySelectorAll(".pin-dot");
+    dots.forEach((dot, index) => {
+        if (index < currentPin.length) {
+            dot.classList.add("filled");
+        } else {
+            dot.classList.remove("filled");
+        }
+    });
+}
+
+// Submit PIN
+function submitPin() {
+    if (currentPin === ADMIN_CODE) {
         sessionStorage.setItem(ADMIN_SESSION_KEY, "true");
         closeAdminModal();
         window.location.href = "admin.html";
     } else {
-        document.getElementById("errorMessage").textContent = "Invalid code. Please try again.";
+        currentPin = "";
+        updatePinDisplay();
+        document.getElementById("errorMessage").textContent = "Invalid PIN. Please try again.";
+        
+        // Shake animation for error
+        const modal = document.querySelector(".pin-modal");
+        modal.style.animation = "none";
+        setTimeout(() => {
+            modal.style.animation = "shake 0.5s ease";
+        }, 10);
     }
 }
 
@@ -44,6 +89,7 @@ function logoutAdmin() {
 // Check authentication on admin page load
 if (window.location.pathname.includes("admin.html")) {
     if (!isAdminAuthenticated()) {
+        // Redirect to index with modal open
         window.location.href = "index.html";
     }
 }
@@ -99,6 +145,9 @@ function loadStaffData() {
     const staffList = document.getElementById("staffList");
     staffList.innerHTML = "";
     
+    // Update stats
+    document.getElementById("staffCount").textContent = staffData.length;
+    
     staffData.forEach((staff, index) => {
         const staffItem = document.createElement("div");
         staffItem.className = "staff-item";
@@ -110,7 +159,12 @@ function loadStaffData() {
             </div>
             <input type="text" value="${staff.name}" placeholder="Name" onchange="updateStaffName(${index}, this.value)">
             <input type="text" value="${staff.role}" placeholder="Role" onchange="updateStaffRole(${index}, this.value)">
-            <button class="delete-btn" onclick="deleteStaffMember(${index})">Delete</button>
+            <button class="delete-btn" onclick="deleteStaffMember(${index})">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                </svg>
+                Delete
+            </button>
         `;
         staffList.appendChild(staffItem);
     });
@@ -170,13 +224,21 @@ function loadRulesData() {
     const rulesList = document.getElementById("rulesList");
     rulesList.innerHTML = "";
     
+    // Update stats
+    document.getElementById("rulesCount").textContent = rulesData.length;
+    
     rulesData.forEach((rule, index) => {
         const ruleItem = document.createElement("div");
         ruleItem.className = "rule-item-edit";
         ruleItem.innerHTML = `
             <input type="text" value="${rule.title}" placeholder="Rule Title" onchange="updateRuleTitle(${index}, this.value)">
             <textarea placeholder="Rule Content" onchange="updateRuleContent(${index}, this.value)">${rule.content}</textarea>
-            <button class="delete-btn" onclick="deleteRule(${index})">Delete</button>
+            <button class="delete-btn" onclick="deleteRule(${index})">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                </svg>
+                Delete
+            </button>
         `;
         rulesList.appendChild(ruleItem);
     });

@@ -25,23 +25,77 @@
     </nav>
 
     <main>
-        <div class="page-header">
-            <h1>Admin Panel</h1>
+        <div class="admin-header">
+            <h1>Admin Dashboard</h1>
             <p>Manage your server content</p>
         </div>
 
-        <div class="admin-container">
+        <div class="admin-dashboard">
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon staff-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="staffCount">0</h3>
+                        <p>Staff Members</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon rules-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="rulesCount">0</h3>
+                        <p>Active Rules</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon status-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Online</h3>
+                        <p>System Status</p>
+                    </div>
+                </div>
+            </div>
+
             <!-- Tabs -->
             <div class="admin-tabs">
-                <button class="tab-btn active" onclick="switchTab('staff')">Staff Management</button>
-                <button class="tab-btn" onclick="switchTab('rules')">Rules Management</button>
+                <button class="tab-btn active" onclick="switchTab('staff')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                    Staff Management
+                </button>
+                <button class="tab-btn" onclick="switchTab('rules')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                    </svg>
+                    Rules Management
+                </button>
             </div>
 
             <!-- Staff Management Tab -->
             <div id="staffTab" class="tab-content active">
                 <div class="admin-section">
-                    <h2>Staff Members</h2>
-                    <button class="add-btn" onclick="addStaffMember()">+ Add Staff Member</button>
+                    <div class="section-header">
+                        <h2>Staff Members</h2>
+                        <button class="add-btn" onclick="addStaffMember()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                            </svg>
+                            Add Staff Member
+                        </button>
+                    </div>
                     <div id="staffList" class="admin-list">
                         <!-- Staff members will be loaded here -->
                     </div>
@@ -51,11 +105,26 @@
             <!-- Rules Management Tab -->
             <div id="rulesTab" class="tab-content">
                 <div class="admin-section">
-                    <h2>Server Rules</h2>
+                    <div class="section-header">
+                        <h2>Server Rules</h2>
+                        <button class="add-btn" onclick="addRule()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                            </svg>
+                            Add Rule
+                        </button>
+                    </div>
                     <div id="rulesList" class="admin-list">
                         <!-- Rules will be loaded here -->
                     </div>
-                    <button class="save-btn" onclick="saveRules()">Save Changes</button>
+                    <div class="save-section">
+                        <button class="save-btn" onclick="saveRules()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>
+                            </svg>
+                            Save All Changes
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
