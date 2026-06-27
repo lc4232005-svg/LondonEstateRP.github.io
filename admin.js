@@ -1,19 +1,15 @@
 // Admin Authentication
 const ADMIN_CODE = "0872";
-const ADMIN_SESSION_KEY = "admin_session";
+const ADMIN_ACCESS_FLAG = "admin_access_flag";
 let currentPin = "";
 
 // Check if user is authenticated
 function isAdminAuthenticated() {
-    return sessionStorage.getItem(ADMIN_SESSION_KEY) === "true";
+    return sessionStorage.getItem(ADMIN_ACCESS_FLAG) === "true";
 }
 
 // Open admin modal
 function openAdminModal() {
-    if (isAdminAuthenticated()) {
-        window.location.href = "admin.html";
-        return;
-    }
     currentPin = "";
     updatePinDisplay();
     document.getElementById("adminModal").style.display = "block";
@@ -63,7 +59,8 @@ function updatePinDisplay() {
 // Submit PIN
 function submitPin() {
     if (currentPin === ADMIN_CODE) {
-        sessionStorage.setItem(ADMIN_SESSION_KEY, "true");
+        // Set temporary access flag
+        sessionStorage.setItem(ADMIN_ACCESS_FLAG, "true");
         closeAdminModal();
         window.location.href = "admin.html";
     } else {
@@ -82,15 +79,18 @@ function submitPin() {
 
 // Logout admin
 function logoutAdmin() {
-    sessionStorage.removeItem(ADMIN_SESSION_KEY);
+    sessionStorage.removeItem(ADMIN_ACCESS_FLAG);
     window.location.href = "index.html";
 }
 
-// Check authentication on admin page load
+// Check authentication on admin page load - always require PIN
 if (window.location.pathname.includes("admin.html")) {
     if (!isAdminAuthenticated()) {
-        // Redirect to index with modal open
+        // Redirect to index to require PIN entry
         window.location.href = "index.html";
+    } else {
+        // Clear the flag immediately so PIN must be entered again on next visit
+        sessionStorage.removeItem(ADMIN_ACCESS_FLAG);
     }
 }
 
