@@ -11,6 +11,7 @@
     
     <nav>
         <div class="nav-container">
+            <button class="admin-btn" onclick="openAdminModal()">ADMIN</button>
             <a href="index.html" class="nav-logo">
                 <img src="london-estate-rp-banner.png" alt="London Estate RP Logo">
                 <span class="nav-logo-text">London Estate RP</span>
@@ -23,72 +24,26 @@
         </div>
     </nav>
 
+    <!-- Admin Login Modal -->
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAdminModal()">&times;</span>
+            <h2>Admin Access</h2>
+            <p>Enter admin code:</p>
+            <input type="password" id="adminCode" placeholder="Enter code">
+            <button onclick="verifyAdminCode()">Submit</button>
+            <p id="errorMessage" class="error"></p>
+        </div>
+    </div>
+
     <main>
         <div class="page-header">
             <h1>Our Staff Team</h1>
             <p>Meet the dedicated team behind London Estate RP</p>
         </div>
 
-        <div class="staff-grid">
-            <div class="staff-card">
-                <div class="staff-avatar">
-                    <svg width="80" height="80" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                    </svg>
-                </div>
-                <h3>JM</h3>
-                <p class="staff-role">Owner</p>
-            </div>
-
-            <div class="staff-card">
-                <div class="staff-avatar">
-                    <svg width="80" height="80" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                    </svg>
-                </div>
-                <h3>Head Admin</h3>
-                <p class="staff-role">Head Administrator</p>
-            </div>
-
-            <div class="staff-card">
-                <div class="staff-avatar">
-                    <svg width="80" height="80" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                    </svg>
-                </div>
-                <h3>Senior Admin</h3>
-                <p class="staff-role">Senior Administrator</p>
-            </div>
-
-            <div class="staff-card">
-                <div class="staff-avatar">
-                    <svg width="80" height="80" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                    </svg>
-                </div>
-                <h3>Admin</h3>
-                <p class="staff-role">Administrator</p>
-            </div>
-
-            <div class="staff-card">
-                <div class="staff-avatar">
-                    <svg width="80" height="80" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                    </svg>
-                </div>
-                <h3>Moderator</h3>
-                <p class="staff-role">Moderator</p>
-            </div>
-
-            <div class="staff-card">
-                <div class="staff-avatar">
-                    <svg width="80" height="80" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                    </svg>
-                </div>
-                <h3>Support Team</h3>
-                <p class="staff-role">Support</p>
-            </div>
+        <div class="staff-grid" id="staffGrid">
+            <!-- Staff members will be loaded dynamically from localStorage -->
         </div>
 
         <div class="join-staff">
@@ -104,5 +59,6 @@
     </main>
 
     <script src="script.js"></script>
+    <script src="admin.js"></script>
 </body>
 </html>

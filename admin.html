@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>London Estate RP - Admin Panel</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="stars"></div>
+    
+    <nav>
+        <div class="nav-container">
+            <button class="admin-btn" onclick="logoutAdmin()">LOGOUT</button>
+            <a href="index.html" class="nav-logo">
+                <img src="london-estate-rp-banner.png" alt="London Estate RP Logo">
+                <span class="nav-logo-text">London Estate RP</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="staff.html" class="nav-link">Staff</a>
+                <a href="rules.html" class="nav-link">Rules</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="page-header">
+            <h1>Admin Panel</h1>
+            <p>Manage your server content</p>
+        </div>
+
+        <div class="admin-container">
+            <!-- Tabs -->
+            <div class="admin-tabs">
+                <button class="tab-btn active" onclick="switchTab('staff')">Staff Management</button>
+                <button class="tab-btn" onclick="switchTab('rules')">Rules Management</button>
+            </div>
+
+            <!-- Staff Management Tab -->
+            <div id="staffTab" class="tab-content active">
+                <div class="admin-section">
+                    <h2>Staff Members</h2>
+                    <button class="add-btn" onclick="addStaffMember()">+ Add Staff Member</button>
+                    <div id="staffList" class="admin-list">
+                        <!-- Staff members will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rules Management Tab -->
+            <div id="rulesTab" class="tab-content">
+                <div class="admin-section">
+                    <h2>Server Rules</h2>
+                    <div id="rulesList" class="admin-list">
+                        <!-- Rules will be loaded here -->
+                    </div>
+                    <button class="save-btn" onclick="saveRules()">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="admin.js"></script>
+</body>
+</html>

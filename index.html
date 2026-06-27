@@ -11,6 +11,7 @@
     
     <nav>
         <div class="nav-container">
+            <button class="admin-btn" onclick="openAdminModal()">ADMIN</button>
             <a href="index.html" class="nav-logo">
                 <img src="london-estate-rp-banner.png" alt="London Estate RP Logo">
                 <span class="nav-logo-text">London Estate RP</span>
@@ -22,6 +23,18 @@
             </div>
         </div>
     </nav>
+
+    <!-- Admin Login Modal -->
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAdminModal()">&times;</span>
+            <h2>Admin Access</h2>
+            <p>Enter admin code:</p>
+            <input type="password" id="adminCode" placeholder="Enter code">
+            <button onclick="verifyAdminCode()">Submit</button>
+            <p id="errorMessage" class="error"></p>
+        </div>
+    </div>
 
     <main>
         <div class="hero">
@@ -38,5 +51,6 @@
     </main>
 
     <script src="script.js"></script>
+    <script src="admin.js"></script>
 </body>
 </html>
