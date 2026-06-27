@@ -722,11 +722,48 @@ main {
     align-items: flex-start;
     flex-wrap: wrap;
     transition: all 0.3s ease;
+    cursor: move;
 }
 
 .staff-item:hover, .rule-item-edit:hover {
     border-color: rgba(59, 130, 246, 0.5);
     box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
+}
+
+.staff-item.dragging {
+    opacity: 0.5;
+    transform: scale(0.98);
+    border-color: #3b82f6;
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+}
+
+.staff-item.drag-over {
+    border-color: #10b981;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.2));
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+}
+
+.drag-handle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(59, 130, 246, 0.2);
+    border-radius: 8px;
+    color: #60a5fa;
+    cursor: grab;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.drag-handle:hover {
+    background: rgba(59, 130, 246, 0.4);
+    color: #ffffff;
+}
+
+.drag-handle:active {
+    cursor: grabbing;
 }
 
 .staff-item input, .rule-item-edit input, .rule-item-edit textarea {

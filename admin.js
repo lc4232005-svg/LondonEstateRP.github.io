@@ -151,7 +151,14 @@ function loadStaffData() {
     staffData.forEach((staff, index) => {
         const staffItem = document.createElement("div");
         staffItem.className = "staff-item";
+        staffItem.setAttribute("draggable", "true");
+        staffItem.setAttribute("data-index", index);
         staffItem.innerHTML = `
+            <div class="drag-handle">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                </svg>
+            </div>
             <div class="image-upload">
                 <label>Profile Image:</label>
                 <input type="file" accept="image/*" onchange="uploadStaffImage(${index}, this)">
@@ -166,8 +173,66 @@ function loadStaffData() {
                 Delete
             </button>
         `;
+        
+        // Add drag and drop event listeners
+        staffItem.addEventListener('dragstart', handleDragStart);
+        staffItem.addEventListener('dragend', handleDragEnd);
+        staffItem.addEventListener('dragover', handleDragOver);
+        staffItem.addEventListener('drop', handleDrop);
+        staffItem.addEventListener('dragenter', handleDragEnter);
+        staffItem.addEventListener('dragleave', handleDragLeave);
+        
         staffList.appendChild(staffItem);
     });
+}
+
+let draggedItem = null;
+
+function handleDragStart(e) {
+    draggedItem = this;
+    this.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+}
+
+function handleDragEnd(e) {
+    this.classList.remove('dragging');
+    document.querySelectorAll('.staff-item').forEach(item => {
+        item.classList.remove('drag-over');
+    });
+}
+
+function handleDragOver(e) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+}
+
+function handleDragEnter(e) {
+    this.classList.add('drag-over');
+}
+
+function handleDragLeave(e) {
+    this.classList.remove('drag-over');
+}
+
+function handleDrop(e) {
+    e.preventDefault();
+    this.classList.remove('drag-over');
+    
+    if (draggedItem !== this) {
+        const staffData = JSON.parse(localStorage.getItem("staffData")) || [];
+        const fromIndex = parseInt(draggedItem.getAttribute('data-index'));
+        const toIndex = parseInt(this.getAttribute('data-index'));
+        
+        // Reorder array
+        const [movedItem] = staffData.splice(fromIndex, 1);
+        staffData.splice(toIndex, 0, movedItem);
+        
+        // Save to localStorage
+        localStorage.setItem("staffData", JSON.stringify(staffData));
+        
+        // Reload staff list
+        loadStaffData();
+    }
 }
 
 // Add staff member
